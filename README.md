@@ -3,15 +3,10 @@ A electron app showing a tray indicator in different colors according to status 
 
 ## Description
 The application is build for operators to get a visual alarming signal when a specific value is received.
-Therefore 
+Therefore the alert-tray-indicator calls a configurable api and parses the return value. According to the value found the color of the tray icon chages.
 
-## supported sources
+## currently supported sources (apis)
 * alertmanager
-
-several others to come.
-
-# 
-git clone https://github.com/markoste/alert-tray-indicator
 
 
 ## Installation
