@@ -1,6 +1,6 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-
+const {app, BrowserWindow, Tray} = require('electron')
+const path = require('path')
 const config = require("./config.json")
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -17,6 +17,21 @@ function createWindow () {
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
 
+  // set tray icon to default green
+    let appIcon = null
+
+  // green icon
+  const iconNameGreen = 'signal_green.png'
+  const iconPathGreen = path.join(__dirname, iconNameGreen)
+
+  const iconNameOrange = 'signal_orange.png'
+  const iconPathOrange = path.join(__dirname, iconNameOrange)
+
+  const iconNameRed = 'signal_red.png'
+  const iconPathRed = path.join(__dirname, iconNameRed)
+
+  appTrayIcon = new Tray(iconPathGreen)
+  
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -45,6 +60,7 @@ app.on('activate', function () {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindow()
+
   }
 })
 
