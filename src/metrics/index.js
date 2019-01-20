@@ -30,6 +30,7 @@ module.exports.init = function(config) {
                 });
                 }).on("error", (err) => {
                     console.log("Error: " + err.message);
+                    updateTrayIcon('error');
                 })
         });        
     }, 5e3)
