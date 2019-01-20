@@ -25,25 +25,25 @@ module.exports.init = function(config) {
                 });
                 // The whole response has been received. Print out the result.
                 resp.on('end', () => {
-                    drawTrayIcon(data)
+                    drawTrayStatusIcon(data)
                 });
                 }).on("error", (err) => {
-                    trayError(err);
+                    drawTrayErrorIcon(err);
                 })
         });        
     }, 5e3)
 }
 
-function drawTrayIcon(data) {
+function drawTrayStatusIcon(data) {
     try {
         let trayIconColor = parseTrayIconStatus(JSON.parse(data))    
         updateTrayIcon(trayIconColor);
     } catch (error) {
-        trayError(error);
+        drawTrayErrorIcon(error);
     }
 }
 
-function trayError(err) {
+function drawTrayErrorIcon(err) {
     console.log("Error: " + err.message);
     updateTrayIcon('error');
 }
@@ -62,7 +62,6 @@ function parseTrayIconStatus(responseObject) {
 }
 
 function updateTrayIcon(color) {
-  // set tray icon to default green
   appTrayIcon.setImage(colorToImagePath(color));
 }
 
