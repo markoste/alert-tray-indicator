@@ -11,7 +11,7 @@ const defConMap = {
 } 
 
 module.exports.init = function(config) {
-    appTrayIcon = new Tray(colorToImagePath('no_alert'));
+    appTrayIcon = new Tray(colorToImagePath('init'));
     console.log("Hello from metrics")
     
     setInterval(function() {
@@ -25,15 +25,27 @@ module.exports.init = function(config) {
                 });
                 // The whole response has been received. Print out the result.
                 resp.on('end', () => {
-                    let trayIconColor = parseTrayIconStatus(JSON.parse(data))
-                    updateTrayIcon(trayIconColor);
+                    drawTrayIcon(data)
                 });
                 }).on("error", (err) => {
-                    console.log("Error: " + err.message);
-                    updateTrayIcon('error');
+                    trayError(err);
                 })
         });        
     }, 5e3)
+}
+
+function drawTrayIcon(data) {
+    try {
+        let trayIconColor = parseTrayIconStatus(JSON.parse(data))    
+        updateTrayIcon(trayIconColor);
+    } catch (error) {
+        trayError(error);
+    }
+}
+
+function trayError(err) {
+    console.log("Error: " + err.message);
+    updateTrayIcon('error');
 }
 
 // are we fucked?
